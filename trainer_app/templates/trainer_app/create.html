@@ -1,0 +1,116 @@
+{% extends 'trainer_app/base.html' %}
+
+{% block title %}Create{% endblock %}
+
+<!-- link to home page -->
+{% block mySidenav %}
+  <a style="font-size:20px; margin-left:8px; margin-top:8px;" href="/home">Home :</a><br><br>  
+{% endblock %}
+<!--css of create page-->
+{% block content %}
+  <style>
+      input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      } 
+
+      input[type=submit] {
+        width: 100%;
+        background-color: #c3c3d5;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    
+      input[type=submit]:hover {
+        background-color: #45a049;
+        cursor:pointer;
+      }
+      button{
+     
+        box-shadow: 0px 0px 1px 1px #0000001a;
+        animation: pulse-animation 2s infinite;
+      }
+      .pulse {
+        animation: pulse-animation 2s infinite;
+      }
+      
+      @keyframes pulse-animation {
+        0% {
+          box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+        }
+        100% {
+          box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+        }
+      }
+
+      button:hover {
+        background-color: #0c7b52;
+      }
+      a:link, a:visited {
+        background-color: #d5711a; 
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 4px;
+      }
+      
+      a:hover, a:active {
+        background-color: #4a84b4;
+      }
+      
+      div {
+        border-radius: 15px;
+        background-color: #c3c3d5;
+        padding: 20px;
+        margin-right: 150px;
+        margin-left:150px; 
+      }  
+  </style>
+  
+<!-- form to create a new trainer -->
+  <div id="content2" style="margin-top: 50px;" > 
+  <form style="background-color: #c3c3d5;" method='post'>        
+    {% csrf_token %} 
+    
+    <h2 style="margin-left: 0px;">CREATE TRAINER</h2>
+    <br>
+    <b><label for='first_name'>First Name:</label></b>
+    <input type='text' name='first_name' id='first_name'/><br>
+    <b><label for='last_name'>Last Name:</label></b>
+    <input type='text' name='last_name' id='last_name'/><br>
+    <b><label for='subject'>Subject:</label></b>
+    <input type='text' name='subject' id='subject'/><br>
+
+<!-- handling the errors in the form with warning messages -->
+    {% if empty_first_name %}
+        <div style="color: #c00f08; position:absolute; margin-left: 280px;text-align: center;"><b>{{ empty_first_name }}<b/></div>
+    {% elif empty_last_name  %}
+        <div style="color: #c00f08; position:absolute; margin-left: 280px;text-align: center;"><b>{{ empty_last_name }}</b></div>
+    {% elif empty_subject %}
+        <div style="color: #c00f08; position:absolute; margin-left: 280px;text-align: center;"><b>{{ empty_subject }}<b/></div>
+    {% elif empty_first_last_name  %}
+        <div style="color: #c00f08; position:absolute; margin-left: 280px;text-align: center;"><b>{{ empty_first_last_name }}</b></div>
+    {% elif empty_first_name_subject  %}
+        <div style="color: #c00f08; position:absolute; margin-left: 280px;text-align: center;"><b>{{ empty_first_name_subject }}</b></div>
+    {% elif empty_last_name_subject  %}
+        <div style="color: #c00f08; position:absolute; margin-left: 280px;text-align: center;"><b>{{ empty_last_name_subject }}</b></div>
+    {% elif empty_first_last_name_subject  %}
+        <div style="color: #c00f08; position:absolute; margin-left: 280px;text-align: center;"><b>{{ empty_first_last_name_subject }}</b></div>
+    
+    {% endif %}
+    <br>
+    <b><button type="submit">Create</button></b>
+  </form>
+  </div>
+{% endblock %}

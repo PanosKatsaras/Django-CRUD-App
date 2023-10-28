@@ -1,0 +1,77 @@
+{% extends 'trainer_app/base.html' %}
+
+{% block title %}Deleted{% endblock %}
+
+<!-- links to home page or create new trainer page -->
+{% block linkbar %}
+<span id="linkbar">
+        <a style="padding-left: 22px;" href="/home">Home :</a><br>
+        <b><a style="padding-left: 22px;" href="/create">Create Trainer :</a></b><br>      
+</span>
+{% endblock %}
+
+
+{% block content %}
+    <div class="box2"style="margin-left:550px;">
+
+<!-- a title that shows a trainer deleted -->
+    <h3 style="text-align:center; color:black; font-size: 30px; background-color: #ae2c28; border-radius:4px; width:455px;margin-left:-30px;">Trainer deleted!</h3>
+
+<!-- a list of all trainers -->
+    <h2>All Trainers :</h2>
+    {% if trainers %}
+            <ol>
+            {% for trainer in trainers %}
+                <li>
+                    <b><span class="first_name">{{trainer.first_name}}&nbsp; </span></b>
+                    <b><span class="last_name">{{trainer.last_name}},</span></b>
+                    <b><span class="subject">{{trainer.subject}}&nbsp;</span></b>  
+                    <span><button style="background-color: #0c7b52;  width: 100px; font-size: 20px; margin-bottom:2px;"><a style="color:black; text-decoration:none;" href="/update/{{trainer.id}}">Update</a></button></span>
+                    <span><button style="background-color: #ae2c28; width: 100px; font-size: 20px; margin-bottom:2px;"><a onclick="return confirm('Are you sure you want to delete the trainer?')" style="color:black; text-decoration:none;" href="/delete/{{trainer.id}}">Delete</a></span>
+                </li>
+            {% endfor %}
+            </ol>
+        {% else %}
+            <h2><b>No Trainer added!</b></h2>
+        {% endif %}
+        
+<!--pagination-->
+        {% if trainers.has_other_pages %}
+            <nav>
+                <ul class="pagination justify-content-center">
+                {% if trainers.has_previous %}
+                    <li class="page-item" style="display:inline; color:black;">
+                        <a class="page-link"style="color:black;" href="?page={{ trainers.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled"style="display:inline; color:black;">
+                        <span class="page-link" aria-hidden="true">&laquo;</span>
+                    </li>
+                    {% endif %}
+
+                    {% for t in trainers.paginator.page_range %}
+                    {% if trainers.number == t %}
+                        <li class="page-item"style="display:inline;"><a class="page-link" style="color:#d5711a" href="#">{{ t }}</a></li>
+                    {% else %}
+                        <li class="page-item"style="display:inline; color:black;"><a class="page-link" style="color:black;" href="?page={{ t }}">{{ t }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if trainers.has_next %}
+                    <li class="page-item"style="display: inline;color:black;">
+                        <a class="page-link"style="color:black;" href="?page={{ trainers.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled"style="display: inline;color:black;">
+                        <span class="page-link" aria-hidden="true">&raquo;</span>
+                    </li>
+                {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+{% endblock %}
