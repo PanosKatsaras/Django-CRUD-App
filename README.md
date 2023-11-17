@@ -1,7 +1,7 @@
 # Django-CRUD-App
 Django application for trainers
 
-INSTALLATION
+## INSTALLATION
 
 1. Make sure you have installed python version 3.10
 2. Make sure you have installed gitbash
